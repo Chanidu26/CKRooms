@@ -1,0 +1,172 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+        "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: "poppins", sans-serif;
+    background-color: #e2e2eb;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+        monospace;
+}
+
+.navbar {
+    background-color: #212121;
+}
+
+.navbar-nav {
+    margin-left: auto;
+    padding-right: 5px;
+}
+
+.smallImg {
+    width: auto;
+    height: 200px;
+}
+
+.bShadow {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    padding: 20px 0px;
+    border-radius: 11px;
+    margin-top: 20px;
+}
+
+.bShadow:hover {
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px,
+        rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+.landing {
+    background-color: #000000 !important;
+    height: 100vh !important;
+    padding-top: 150px;
+    background-image: url("../images/LandingPage.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.btnlan {
+    font-size: 20px;
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border-color: white !important;
+    margin-top: 20px !important;
+    box-shadow: none !important;
+    border-radius: 8px !important;
+    margin-top: 25px !important;
+    padding: 5px;
+}
+
+.bigImg {
+    width: 400px;
+    height: 100%;
+    object-fit: cover;
+}
+
+.popupDescription {
+    font-size: 13px;
+    margin-top: 20px;
+}
+
+.popupTitle {
+    font-size: 20px;
+}
+
+.spinner {
+    margin-top: 180px;
+}
+
+.marginReducer {
+    margin-top: -10px;
+}
+
+.bookingContainer {
+    margin: 20px 50px;
+    padding: 20px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+        rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    border-radius: 11px;
+}
+
+.errorComp {
+    margin: 30px 10% 0px 10%;
+}
+
+.inputs {
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.loader {
+    margin-top: 230px;
+}
+
+.bookingContainer {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    border-radius: 11px;
+}
+
+.bookingContainer:hover {
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px,
+        rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+.material-symbols-outlined {
+    font-size: 22px;
+    color: #212121;
+}
+
+.material-symbols-outlined:hover {
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+        rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    cursor: pointer;
+}
+
+.bookNowBtn {
+    margin-top: 20px;
+}
+
+.LandingText {
+    color: "white";
+    font-size: 120px;
+    font-weight: normal;
+    font-family: "cursive";
+    letter-spacing: 10px;
+}
+
+.viewDetailsBtn {
+    margin-right: -60px;
+}
+
+.profileContainer {
+    margin: 20px 70px;
+}
+
+@media only screen and (max-width: 600px) {
+    .LandingText {
+        font-size: 60px !important;
+    }
+
+    .roomContainer {
+        margin: 0px 20px !important;
+    }
+
+    .viewDetailsBtn {
+        margin-right: 10px !important;
+    }
+
+    .profileContainer {
+        margin: 20px 5px !important;
+    }
+
+    #ControlSelect {
+        margin-bottom: 20px !important;
+    }
+}

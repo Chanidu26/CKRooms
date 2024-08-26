@@ -1,0 +1,72 @@
+[
+    {
+    "name": "Galle Face Hotel Colombo",
+    "imgURL": [
+        "https://images.oyoroomscdn.com/uploads/hotel_image/56303/medium/597f0e48823f8885.jpg",
+        "https://images.oyoroomscdn.com/uploads/hotel_image/56303/medium/06883e94ec59702e.jpg",
+        "https://images.oyoroomscdn.com/uploads/hotel_image/56303/medium/91dead74a5dffa61.jpg"
+    ],
+    "pricePerDay": 1500,
+    "roomType": "deluxe",
+    "maxCount": 3,
+    "phoneNo": 9989649278,
+    "bookedDates": [],
+    "description": "Galle Face Hotel Colombo is a luxurious property situated along the beautiful Galle Face Green in Colombo. Enjoy breathtaking views of the Indian Ocean and indulge in the charm of Sri Lankan hospitality. The hotel is conveniently located near historic landmarks such as the Galle Face Promenade and Old Parliament Building."
+    },
+    {
+    "name": "Sigiriya Royal Resort",
+    "imgURL": [
+        "https://images.oyoroomscdn.com/uploads/hotel_image/105649/large/8e80e24a5496eb80.jpg",
+        "https://images.oyoroomscdn.com/uploads/hotel_image/105649/large/caef038a4b97b589.jpg",
+        "https://images.oyoroomscdn.com/uploads/hotel_image/105649/large/46bffe91d06dcb96.jpg"
+    ],
+    "pricePerDay": 1500,
+    "roomType": "deluxe",
+    "maxCount": 3,
+    "phoneNo": 9989649278,
+    "bookedDates": [],
+    "description": "Sigiriya Royal Resort offers a regal experience at the heart of Sri Lanka's cultural triangle. Nestled near the ancient rock fortress of Sigiriya, this resort combines modern comfort with a touch of history. Explore the nearby Dambulla Cave Temple and immerse yourself in the rich heritage of the region."
+    },
+    {
+    "name": "Kandy Grand Heritage Hotel",
+    "imgURL": [
+        "https://images.oyoroomscdn.com/uploads/hotel_image/111796/large/e225bbf160a11c02.jpg",
+        "https://images.oyoroomscdn.com/uploads/hotel_image/111796/large/d55361043c9b52af.jpg",
+        "https://images.oyoroomscdn.com/uploads/hotel_image/111796/large/2f7029d3c5429b5f.jpg"
+    ],
+    "pricePerDay": 1600,
+    "roomType": "non-deluxe",
+    "maxCount": 4,
+    "phoneNo": 9989649278,
+    "bookedDates": [],
+    "description": "Kandy Grand Heritage Hotel, located in the picturesque city of Kandy, offers a blend of modern luxury and cultural charm. With close proximity to the Temple of the Tooth and the Royal Botanical Gardens, this hotel provides a serene retreat amidst the lush hills of Sri Lanka."
+    },
+    {
+    "name": "Mirissa Oceanfront Retreat",
+    "imgURL": [
+        "https://images.oyoroomscdn.com/uploads/hotel_image/38668/large/414e401312ad45a7.jpg",
+        "https://images.oyoroomscdn.com/uploads/hotel_image/38668/large/d24b920cfdddeecb.jpg",
+        "https://images.oyoroomscdn.com/uploads/hotel_image/38668/large/58025558878fa4ec.jpg"
+    ],
+    "pricePerDay": 1800,
+    "roomType": "non-deluxe",
+    "maxCount": 3,
+    "phoneNo": 9989649278,
+    "bookedDates": [],
+    "description": "Mirissa Oceanfront Retreat invites you to a tropical paradise on the shores of Mirissa. Experience the sun-kissed beaches, vibrant marine life, and the laid-back atmosphere of the southern coast of Sri Lanka. Immerse yourself in the tranquility of this beachfront haven."
+    },
+    {
+    "name": "Ella Green Hills Boutique Inn",
+    "imgURL": [
+        "https://images.oyoroomscdn.com/uploads/hotel_image/107625/large/4488071a59d38cc5.jpg",
+        "https://images.oyoroomscdn.com/uploads/hotel_image/107625/large/d452b4897a767f6b.jpg",
+        "https://images.oyoroomscdn.com/uploads/hotel_image/107625/large/8f690e54761344e0.jpg"
+    ],
+    "pricePerDay": 2000,
+    "roomType": "non-deluxe",
+    "maxCount": 3,
+    "phoneNo": 9989649278,
+    "bookedDates": [],
+    "description": "Ella Green Hills Boutique Inn is nestled in the lush greenery of Ella, offering panoramic views of the iconic Ella Rock. Discover the beauty of Sri Lanka's hill country and explore attractions like Little Adam's Peak and Nine Arch Bridge. Experience serenity and comfort at this charming boutique inn."
+    }
+]
