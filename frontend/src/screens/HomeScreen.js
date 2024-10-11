@@ -128,7 +128,7 @@ function HomeScreen() {
                 ) : filteredRooms ? (
                     filteredRooms.map((room) => {
                         return (
-                            <div className="col-md-9 mb-2">
+                            <div className="col-md-9 mb-2" key={room._id}>
                                 <Room
                                     room={room}
                                     fromDate={fromDate}

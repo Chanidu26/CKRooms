@@ -70,7 +70,7 @@ function BookingScreen() {
 
         console.log(bookingDetails);
 
-        await axios.post("/api/bookings/bookRoom", bookingDetails).then(
+        await axios.post("http://localhost:8000/api/bookings/bookRoom", bookingDetails).then(
             (response) => {
                 Swal.fire({
                     title: "Your booking is successful",
@@ -94,7 +94,7 @@ function BookingScreen() {
             amount: totalDays * room.pricePerDay,
             description: room.name,
         }
-        await axios.post("/api/bookings/payment", stripeToken).then(
+        await axios.post("http://localhost:8000/api/bookings/payment", stripeToken).then(
             (response) => {
                 bookRoom(response.data);
             }, (error) => {
@@ -172,7 +172,7 @@ function BookingScreen() {
                                 amount={totalDays * room.pricePerDay * 100}
                                 currency="LKR"
                                 token={onToken}
-                                stripeKey="pk_test_51OW27PIgh0lMKMevGMnDm4suVchcjJqo78U5Zw86wYtbRbg1af16R1JXdYsKhzYhnFnyycKuoLyE3RtbmTR9sYPe00cNsii5yG"
+                                stripeKey="pk_test_51Q7ymXRrLNtV0o2Mvz4a2uUjm6WMDsro1DAhOMt7gc7UrB5x3JCU5PBlMBIjA1O9eFdvBXyAeNR6pwlkgaIHqaQ1005oAoYyJS"
                             >
                             <button
                                 className="btn btn-primary bookNowBtn"
