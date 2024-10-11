@@ -20,7 +20,7 @@ function MyBookings() {
             setLoading(true);
             try {
                 const bookings = await axios.post(
-                    "/api/bookings/getBookingsByUserId",
+                    "http://localhost:8000/api/bookings/getBookingsByUserId",
                     { userId: user._id }
                 );
                 setBookings(bookings.data);
