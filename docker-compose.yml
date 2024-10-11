@@ -1,0 +1,33 @@
+services:
+  mongo:
+     image: mongo
+     name: mongodb-container
+     volumes:
+       - /data/db
+     ports:
+       - 27017:27017
+  
+  server:
+      bulid: ./backend
+      image: node:latest
+      name: server-container
+      ports:
+        - 8000:8000
+      volumes:
+        - ./backend:/app
+      depends_on:
+        - mongo
+      environment:
+      
+
+  client:
+      build: ./frontend
+      name: client-container
+      ports:
+        - 3000:3000
+      volumes:
+        - ./frontend:/app
+      depends_on:
+        - server
+    
+      
