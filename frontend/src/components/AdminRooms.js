@@ -4,6 +4,8 @@ import Error from "./Error";
 import axios from "axios";
 import Swal from "sweetalert2";
 
+const baseUrl = process.env.REACT_APP_API_BASE_URL;
+
 function AdminRooms() {
     const [rooms, setRooms] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -13,7 +15,7 @@ function AdminRooms() {
         async function fetchRooms() {
             try {
                 setLoading(true);
-                const response = await axios.get("http://localhost:8000/api/rooms/getAllRooms");
+                const response = await axios.get(`${baseUrl}/api/rooms/getAllRooms`);
                 setRooms(response.data);
                 setLoading(false);
             } catch (error) {
@@ -28,7 +30,7 @@ function AdminRooms() {
     const deleteRoom = (roomId) => {
         try{
             setLoading(true);
-            axios.get(`/api/rooms/deleteRoom/${roomId}`);
+            axios.get(`${baseUrl}/api/rooms/deleteRoom/${roomId}`);
             setLoading(false);
             Swal.fire({
                 title: "Room Deleted Successfully",

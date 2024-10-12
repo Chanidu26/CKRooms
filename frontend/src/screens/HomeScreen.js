@@ -6,6 +6,7 @@ import Error from "../components/Error";
 import { DatePicker, Space, Input, Radio } from "antd";
 import moment from "moment";
 
+const baseUrl = process.env.REACT_APP_API_BASE_URL;
 const { RangePicker } = DatePicker;
 const { Search } = Input;
 
@@ -22,7 +23,7 @@ function HomeScreen() {
         let getRes = async () => {
             try {
                 setLoading(true);
-                const response = (await axios.get("http://localhost:8000/api/rooms/getAllRooms"))
+                const response = (await axios.get(`${baseUrl}/api/rooms/getAllRooms`))
                     .data;
                 setRooms(response);
                 setFilteredRooms(response);

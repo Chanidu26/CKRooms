@@ -5,6 +5,7 @@ import Error from "./Error";
 import { Tag } from "antd";
 import Swal from "sweetalert2";
 import { Radio } from "antd";
+const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
 function MyBookings() {
     const user = JSON.parse(localStorage.getItem("currentUser"));
@@ -20,7 +21,7 @@ function MyBookings() {
             setLoading(true);
             try {
                 const bookings = await axios.post(
-                    "http://localhost:8000/api/bookings/getBookingsByUserId",
+                    `${baseUrl}/api/bookings/getBookingsByUserId`,
                     { userId: user._id }
                 );
                 setBookings(bookings.data);
@@ -37,7 +38,7 @@ function MyBookings() {
     async function cancelBooking(booking) {
         const bookingId = booking._id;
         try {
-            const cancel = await axios.post("http://localhost:8000/api/bookings/cancelBooking", {
+            const cancel = await axios.post(`${baseUrl}/api/bookings/cancelBooking`, {
                 bookingId,
                 roomId: booking.roomId,
             });

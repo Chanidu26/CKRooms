@@ -7,7 +7,7 @@ import Loader from "../components/Loader";
 import Error from "../components/Error";
 import moment from "moment";
 import AddRooms from "../components/AddRooms";
-
+const baseUrl = process.env.REACT_APP_API_BASE_URL;
 const { TabPane } = Tabs;
 
 function AdminScreen() {
@@ -55,7 +55,7 @@ export function Bookings() {
             const getBookings = async () => {
                 setLoading(true);
                 const response = await axios.get(
-                    "http://localhost:8000/api/bookings/getAllBookings"
+                    `${baseUrl}/api/bookings/getAllBookings`
                 );
                 setBookings(response.data);
                 setLoading(false);
@@ -123,7 +123,7 @@ export function Users() {
         () => async () => {
             try {
                 setLoading(true);
-                const response = await axios.get("http://localhost:8000/api/users/getAllUsers");
+                const response = await axios.get(`${baseUrl}/api/users/getAllUsers`);
                 setUsers(response.data);
                 setLoading(false);
             } catch (error) {
