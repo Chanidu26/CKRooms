@@ -3,6 +3,7 @@ import axios from "axios";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
 import Swal from "sweetalert2";
+const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
 function LoginScreen() {
     const [email, setEmail] = useState("");
@@ -16,7 +17,7 @@ function LoginScreen() {
         setLoading(true);
         try {
             await axios.post(
-                "http://localhost:8000/api/users/login",user
+                `${baseUrl}/api/users/login`,user
             ).then((res) => {
                 if (res.data) {
                     localStorage.setItem("currentUser", JSON.stringify(res.data));

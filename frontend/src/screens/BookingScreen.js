@@ -7,6 +7,7 @@ import Error from "../components/Error";
 import moment from "moment";
 import StripeCheckout from "react-stripe-checkout";
 import Swal from "sweetalert2";
+const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
 function BookingScreen() {
     const [loading, setLoading] = useState(true);
@@ -42,7 +43,7 @@ function BookingScreen() {
             try {
                 setLoading(true);
                 const response = (
-                    await axios.post("http://localhost:8000/api/rooms/getRoomById", {
+                    await axios.post(`${baseUrl}/api/rooms/getRoomById`, {
                         RoomId: roomId,
                     })
                 ).data;
@@ -70,7 +71,7 @@ function BookingScreen() {
 
         console.log(bookingDetails);
 
-        await axios.post("http://localhost:8000/api/bookings/bookRoom", bookingDetails).then(
+        await axios.post(`${baseUrl}/api/bookings/bookRoom`, bookingDetails).then(
             (response) => {
                 Swal.fire({
                     title: "Your booking is successful",
@@ -94,7 +95,7 @@ function BookingScreen() {
             amount: totalDays * room.pricePerDay,
             description: room.name,
         }
-        await axios.post("http://localhost:8000/api/bookings/payment", stripeToken).then(
+        await axios.post(`${baseUrl}/api/bookings/payment`, stripeToken).then(
             (response) => {
                 bookRoom(response.data);
             }, (error) => {

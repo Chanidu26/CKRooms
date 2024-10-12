@@ -3,6 +3,7 @@ import axios from "axios";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
 import Swal from "sweetalert2";
+const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
 function AddRooms() {
     const [error, setError] = useState(false);
@@ -31,7 +32,7 @@ function AddRooms() {
                 bookedDates: [],
                 description,
             };
-            await axios.post("http://localhost:8000/api/rooms/addRoom", room);
+            await axios.post(`${baseUrl}/api/rooms/addRoom`, room);
             setLoading(false);
             Swal.fire({
                 title: "Room Added Successfully",
