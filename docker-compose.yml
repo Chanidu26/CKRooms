@@ -1,33 +1,26 @@
+version: '3.8'
+
 services:
-  mongo:
-     image: mongo
-     name: mongodb-container
-     volumes:
-       - /data/db
-     ports:
-       - 27017:27017
-  
-  server:
-      bulid: ./backend
-      name: server-container
-      ports:
-        - 8000:8000
-      volumes:
-        - ./backend:/app
-      depends_on:
-        - mongo
-      environment:
-        
+  backend:
+    build: ./backend
+    container_name: room-reserve-frontend
+    ports:
+      - "8000:8000"
+    environment:
+      - MONGODB_URI="mongodb+srv://dbuser:dbuser@cluster0.knduhpw.mongodb.net/CKRooms?retryWrites=true&w=majority&appName=Cluster0"
+      - STRIPE_SECRET_KEY="sk_test_51Q7ymXRrLNtV0o2MsyL04fjPgV6Lb0aDcDrwtnbBnS35vzbsRS2Fqx4E1YyX5nyWkzKy625R18YQCGMnr6y4qqPR00ntuTD1Yl" # MongoDB Atlas URI from .env file
+      - NODE_ENV=production
+    depends_on:
+      - frontend
+    volumes:
+      - ./backend:/app
 
-
-  client:
-      build: ./frontend
-      name: client-container
-      ports:
-        - 3000:3000
-      volumes:
-        - ./frontend:/app
-      depends_on:
-        - server
-    
-      
+  frontend:
+    build: ./frontend
+    container_name: room-reserve-backend
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_BASE_URL="http://localhost:8000" # Replace with actual backend API URL
+    volumes:
+      - ./frontend:/app

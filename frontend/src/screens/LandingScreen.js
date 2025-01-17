@@ -36,7 +36,7 @@ function LandingPage() {
                     >
                         "More Destinations. More Ease. More Affordable."
                     </h1>
-                    <Link to="/login">
+                    <Link to="/home">
                         <button className="btnlan" style={{ color: "black" }}>
                             Book Now
                         </button>
