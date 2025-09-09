@@ -1,16 +1,16 @@
 name: CI/CD Pipeline
 
 on:
-  push:                
+  push:
     branches:
       - main
       - development
-  workflow_dispatch:    
+  workflow_dispatch:
     inputs:
       run_build:
         description: "Run Build and Push job?"
         required: true
-        default: "false"
+        default: "true"
         type: choice
         options:
           - "true"
@@ -18,7 +18,7 @@ on:
       run_deploy:
         description: "Run Deploy job?"
         required: true
-        default: "false"
+        default: "true"
         type: choice
         options:
           - "true"
@@ -28,7 +28,8 @@ jobs:
   build-and-push:
     name: Build and Push Docker Images
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch' && github.event.inputs.run_build == 'true'   
+    if: |
+      github.event_name == 'push' || github.event.inputs.run_build == 'true'
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -51,9 +52,10 @@ jobs:
           docker compose push
 
   deploy:
-    name: Deploy to AWS EC2
+    name: Deploy to AWS EC2  
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch' && github.event.inputs.run_deploy == 'true'  
+    if: |
+      github.event_name == 'push' || github.event.inputs.run_deploy == 'true'
     steps:
       - name: Create SSH Key File
         run: |
@@ -63,7 +65,6 @@ jobs:
       - name: SSH into AWS EC2 and Deploy
         run: |
           ssh -o StrictHostKeyChecking=no -i shuttlezone.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
-
           docker stop shuttlezone-frontend-container || true
           docker rm shuttlezone-frontend-container || true
           docker stop shuttlezone-backend-container || true
@@ -92,5 +93,4 @@ jobs:
             --env-file backend.env \
             --restart always \
             ${{ secrets.DOCKER_USERNAME }}/ckrooms-backend:latest
-
           EOF
