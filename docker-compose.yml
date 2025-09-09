@@ -1,26 +1,28 @@
-version: '3.8'
+version: "3.8"
 
 services:
   backend:
-    build: ./backend
-    container_name: room-reserve-frontend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: ${DOCKER_USERNAME}/ckrooms-backend:latest
+    environment:
+      - NODE_ENV=development
     ports:
       - "8000:8000"
-    environment:
-      - MONGODB_URI="mongodb+srv://dbuser:dbuser@cluster0.knduhpw.mongodb.net/CKRooms?retryWrites=true&w=majority&appName=Cluster0"
-      - STRIPE_SECRET_KEY="sk_test_51Q7ymXRrLNtV0o2MsyL04fjPgV6Lb0aDcDrwtnbBnS35vzbsRS2Fqx4E1YyX5nyWkzKy625R18YQCGMnr6y4qqPR00ntuTD1Yl" # MongoDB Atlas URI from .env file
-      - NODE_ENV=production
-    depends_on:
-      - frontend
     volumes:
       - ./backend:/app
+      - /app/node_modules
 
   frontend:
-    build: ./frontend
-    container_name: room-reserve-backend
+    build:
+      context: ./frontend
+      dockerfile: dockerfile
+    image: ${DOCKER_USERNAME}/ckrooms-frontend:latest
     ports:
       - "3000:3000"
-    environment:
-      - REACT_APP_API_BASE_URL="http://localhost:8000" # Replace with actual backend API URL
     volumes:
       - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
