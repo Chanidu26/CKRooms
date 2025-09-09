@@ -1,19 +1,30 @@
 name: CI/CD Pipeline
 
 on:
-  push:
-    branches:
-      - main
-      - development
-  pull_request:
-    branches:
-      - main
+  workflow_dispatch:
+    inputs:
+      run_build:
+        description: "Run Build and Push job?"
+        required: true
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
+      run_deploy:
+        description: "Run Deploy job?"
+        required: true
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
 
 jobs:
   build-and-push:
     name: Build and Push Docker Images
     runs-on: ubuntu-latest
-
+    if: ${{ github.event.inputs.run_build == 'true' }}  
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -35,53 +46,47 @@ jobs:
           docker compose build
           docker compose push
 
-  # deploy:
-  #   name: Deploy to AWS EC2  
-  #   runs-on: ubuntu-latest
-  #   needs: build-and-push
+  deploy:
+    name: Deploy to AWS EC2  
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.run_deploy == 'true' }}  
+    steps:
+      - name: Create SSH Key File
+        run: |
+          echo "${{ secrets.EC2_KEY }}" > shuttlezone.pem
+          chmod 600 shuttlezone.pem 
 
-  #   steps:
-  #     - name: Create SSH Key File
-  #       run: |
-  #         echo "${{ secrets.EC2_KEY }}" > shuttlezone.pem
-  #         chmod 600 shuttlezone.pem 
+      - name: SSH into AWS EC2 and Deploy
+        run: |
+          ssh -o StrictHostKeyChecking=no -i shuttlezone.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
 
-  #     - name: SSH into AWS EC2 and Deploy
-  #       run: |
-  #         ssh -o StrictHostKeyChecking=no -i shuttlezone.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+          docker stop shuttlezone-frontend-container || true
+          docker rm shuttlezone-frontend-container || true
+          docker stop shuttlezone-backend-container || true
+          docker rm shuttlezone-backend-container || true
 
-  #         docker stop shuttlezone-frontend-container || true
-  #         docker rm shuttlezone-frontend-container || true
-  #         docker stop shuttlezone-backend-container || true
-  #         docker rm shuttlezone-backend-container || true
+          docker pull ${{ secrets.DOCKER_USERNAME }}/ckrooms-frontend:latest
+          docker pull ${{ secrets.DOCKER_USERNAME }}/ckrooms-backend:latest
 
-  #         docker pull ${{ secrets.DOCKER_USERNAME }}/shuttlezone-frontend:latest
-  #         docker pull ${{ secrets.DOCKER_USERNAME }}/shuttlezone-backend:latest
+          cat << EOFF > frontend.env
+          REACT_APP_API_BASE_URL=http://${{ secrets.EC2_HOST }}:8000
+          EOFF
 
-  #         cat << EOFF > frontend.env
-  #         REACT_APP_API_BASE_URL=http://${{ secrets.EC2_HOST }}:3030
-  #         REACT_APP_CLOUDINARY_CLOUD_NAME=${{ secrets.REACT_APP_CLOUDINARY_CLOUD_NAME }}
-  #         REACT_APP_CLOUDINARY_UPLOAD_PRESET=${{ secrets.REACT_APP_CLOUDINARY_UPLOAD_PRESET }}
-  #         EOFF
+          cat << EOFF > backend.env
+          MONGODB_URI=${{ secrets.MONGODB_URI }}
+          STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }}
+          EOFF
 
-  #         cat << EOFF > backend.env
-  #         MONGO_DB=${{ secrets.MONGO_DB }}
-  #         JWT=${{ secrets.JWT }}
-  #         STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }}
-  #         EMAIL_USER=${{ secrets.EMAIL_USER }}
-  #         EMAIL_PASS=${{ secrets.EMAIL_PASS }}
-  #         EOFF
+          docker run -d --name shuttlezone-frontend-container \
+            -p 3000:3000 \
+            --env-file frontend.env \
+            --restart always \
+            ${{ secrets.DOCKER_USERNAME }}/shuttlezone-frontend:latest
 
-  #         docker run -d --name shuttlezone-frontend-container \
-  #           -p 3000:3000 \
-  #           --env-file frontend.env \
-  #           --restart always \
-  #           ${{ secrets.DOCKER_USERNAME }}/shuttlezone-frontend:latest
+          docker run -d --name shuttlezone-backend-container \
+            -p 8000:8000 \
+            --env-file backend.env \
+            --restart always \
+            ${{ secrets.DOCKER_USERNAME }}/shuttlezone-backend:latest
 
-  #         docker run -d --name shuttlezone-backend-container \
-  #           -p 3030:3030 \
-  #           --env-file backend.env \
-  #           --restart always \
-  #           ${{ secrets.DOCKER_USERNAME }}/shuttlezone-backend:latest
-
-  #         EOF
+          EOF
