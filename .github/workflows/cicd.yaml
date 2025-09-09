@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - development
+      ##- development if u want development please uncomment this line
   pull_request:
     branches:
       - main
@@ -50,13 +50,13 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no -i shuttlezone.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
 
-          docker stop shuttlezone-frontend-container || true
-          docker rm shuttlezone-frontend-container || true
-          docker stop shuttlezone-backend-container || true
-          docker rm shuttlezone-backend-container || true
+          docker stop ckrooms-frontend-container || true
+          docker rm ckrooms-frontend-container || true
+          docker stop ckrooms-backend-container || true
+          docker rm ckrooms-backend-container || true
 
-          docker pull ${{ secrets.DOCKER_USERNAME }}/shuttlezone-frontend:latest
-          docker pull ${{ secrets.DOCKER_USERNAME }}/shuttlezone-backend:latest
+          docker pull ${{ secrets.DOCKER_USERNAME }}/ckrooms-frontend:latest
+          docker pull ${{ secrets.DOCKER_USERNAME }}/ckrooms-backend:latest
 
           cat << EOFF > frontend.env
           REACT_APP_API_BASE_URL=http://${{ secrets.EC2_HOST }}:8000
@@ -67,13 +67,13 @@ jobs:
           STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }}
           EOFF
 
-          docker run -d --name shuttlezone-frontend-container \
+          docker run -d --name ckrooms-frontend-container \
             -p 3000:3000 \
             --env-file frontend.env \
             --restart always \
             ${{ secrets.DOCKER_USERNAME }}/ckrooms-frontend:latest
 
-          docker run -d --name shuttlezone-backend-container \
+          docker run -d --name ckrooms-backend-container \
             -p 8000:8000 \
             --env-file backend.env \
             --restart always \
