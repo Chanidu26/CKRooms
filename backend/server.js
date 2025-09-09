@@ -9,10 +9,7 @@ const app = express()
 
 
 app.use(express.json())
-app.use(cors({
-  origin: 'https://ck-rooms-w6tc.vercel.app', // Replace with your frontend's deployed URL
-  credentials: true
-}));
+app.use(cors())
 
 const dbConfig = require("./db");
 

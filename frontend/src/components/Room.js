@@ -9,7 +9,7 @@ function Room({ room, fromDate, toDate }) {
     const handleShow = () => setShow(true);
 
     return (
-        <div className="row bShadow">
+        <div className="row bShadow gap-4">
             <div className="col-md-4">
                 <img src={room.imgURL[0]} className="smallImg" alt=""></img>
             </div>

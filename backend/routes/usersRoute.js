@@ -6,6 +6,11 @@ const userModel = require("../models/user");
 router.post("/register", async (req, res) => {
     const hashpassword = await bcrypt.hash(req.body.password, 10);
     req.body.password = hashpassword;
+
+    // Default isAdmin to false if not provided
+    if (req.body.isAdmin === undefined) {
+        req.body.isAdmin = false;
+    }
     const user = new userModel(req.body);
 
     try {

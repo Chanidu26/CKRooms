@@ -13,13 +13,13 @@ function RegistrationPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [cPassword, setCPassword] = useState("");
-
+    const [isAdmin, setIsAdmin] = useState(false);
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 
     async function register() {
         if (password === cPassword) {
-            const user = { firstName, lastName, userName, email, password};
+            const user = { firstName, lastName, userName, email, password, isAdmin };
             setLoading(true);
             
             try {
@@ -129,6 +129,16 @@ function RegistrationPage() {
                             setCPassword(e.target.value);
                         }}
                     />
+
+                    <div className="form-check mt-3">
+                        <input
+                            type="checkbox"
+                            className="form-check-input"
+                            checked={isAdmin}
+                            onChange={(e) => setIsAdmin(e.target.checked)}
+                        />
+                        <label className="form-check-label">Register as Admin</label>
+                    </div>
 
                     <p className="mt-2">Already have an account, <a href="/login" >login</a></p>
 
