@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      ##- development if u want development please uncomment this line
+      - development
   pull_request:
     branches:
       - main
